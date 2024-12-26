@@ -1,14 +1,44 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { PROJECT_COLORS, DEFAULT_PROJECT_COLOR } from '@/constants/Colors';
+import { router, useRouter } from 'expo-router';
+import { useState } from 'react';
+import { View, TouchableOpacity } from 'react-native';
+import { useHeaderHeight } from '@react-navigation/elements';
+import { Ionicons } from '@expo/vector-icons';
 
-const ColorSelect = () => {
+const Page = () => {
+  const [selected, setSelected] = useState<string>(DEFAULT_PROJECT_COLOR);
+  const headerHeight = useHeaderHeight();
+
+  const onColorSelect = (color: string) => {
+    setSelected(color);
+    // ** this will dictate the bg color and we are accessing this in index using globalsearchparams
+    router.setParams({ bg: color });
+  };
+
   return (
-    <View>
-      <Text>ColorSelect</Text>
+    <View style={{ marginTop: headerHeight }}>
+      <View
+        style={{ flexDirection: 'row', flexGrow: 1, flexWrap: 'wrap', justifyContent: 'center' }}>
+        {PROJECT_COLORS.map((color) => (
+          <TouchableOpacity
+            key={color}
+            style={{
+              backgroundColor: color,
+              height: 60,
+              width: 60,
+              margin: 5,
+              borderRadius: 30,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            onPress={() => onColorSelect(color)}>
+            {selected === color && (
+              <Ionicons name="checkmark" size={24} color={'#fff'} style={{}} />
+            )}
+          </TouchableOpacity>
+        ))}
+      </View>
     </View>
-  )
-}
-
-export default ColorSelect
-
-const styles = StyleSheet.create({})
+  );
+};
+export default Page;

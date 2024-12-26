@@ -11,7 +11,7 @@ import Fab from '@/components/Fab'
 import * as ContextMenu from 'zeego/context-menu';
 import { Ionicons } from '@expo/vector-icons'
 import { Colors } from '@/constants/Colors'
-
+import Animated, { LinearTransition } from 'react-native-reanimated';
 
 const Browse = () => {
   const { signOut } = useAuth()
@@ -42,7 +42,8 @@ const Browse = () => {
             <Ionicons name="add" size={24} color={Colors.dark} />
           </TouchableOpacity>
         </View>
-        <FlatList
+        <Animated.FlatList
+             itemLayoutAnimation={LinearTransition}
           data={data}
           renderItem={({ item }) => (
             <ContextMenu.Root key={item.id}>
