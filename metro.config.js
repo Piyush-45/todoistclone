@@ -1,10 +1,11 @@
-const {
-  getSentryExpoConfig
-} = require("@sentry/react-native/metro");
-
+// metro.config.js
 /** @type {import('expo/metro-config').MetroConfig} */
-const config = getSentryExpoConfig(__dirname);
+const { getDefaultConfig } = require('expo/metro-config');
 
-config.resolver.sourceExts.push('sql'); // <--- add this
+// Get the default configuration
+const config = getDefaultConfig(__dirname);
+
+// Extend the sourceExts to include 'sql'
+config.resolver.sourceExts.push('sql');
 
 module.exports = config;

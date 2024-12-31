@@ -7,7 +7,11 @@ import { Colors } from '@/constants/Colors'; // Replace with your color constant
 const DropdownMenu = () => {
   const [isVisible, setIsVisible] = useState(false);
 
-  const toggleMenu = () => setIsVisible(!isVisible);
+  const toggleMenu = () => {
+    console.log("more button clicked")
+    setIsVisible(!isVisible)
+  
+};
 
   // Handle closing the menu
   const handleCloseMenu = () => setIsVisible(false);
@@ -34,7 +38,7 @@ const DropdownMenu = () => {
             <Text style={styles.menuItemText}>Copy</Text>
             <Feather name="link" size={24} color="black" />
           </TouchableOpacity>
-          <View style={{width:'100%', backgroundColor:Colors.backgroundAlt, height:'10',}}/>
+          {/* <View style={{width:'100%', backgroundColor:'#f5f5f5', height:'10',}}/> */}
           <TouchableOpacity onPress={() => { console.log('Item 2 clicked'); handleCloseMenu(); }} style={styles.menuItem}>
             <Text style={styles.menuItemText}>Select Tasks</Text>
             <Ionicons name="checkbox-outline" size={24} color="black" />

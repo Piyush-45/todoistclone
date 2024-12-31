@@ -11,6 +11,7 @@ import Animated, { LayoutAnimationConfig, StretchInY } from 'react-native-reanim
 import TaskRow from '@/components/TaskRow'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Colors } from '@/constants/Colors'
+import DropdownMenu from '@/components/MoreButton'
 
 interface Section {
   title: string;
@@ -26,7 +27,7 @@ const Today = () => {
   const { data } = useLiveQuery(drizzleDb.select()
     .from(todos)
     .leftJoin(projects, eq(todos.project_id, projects.id))
-    .where(eq(todos.completed, 1)))
+    .where(eq(todos.completed, 0)))
 
   useEffect(() => {
     const formatedData = data?.map((item) => ({
@@ -67,14 +68,13 @@ const Today = () => {
         showsVerticalScrollIndicator={false}
         contentInsetAdjustmentBehavior="automatic"
         sections={sectionListData}
-        renderItem={({item})=> <TaskRow task={item}/>}
-        // renderItem={({ item }) => (
-        //   <LayoutAnimationConfig>
-        //     <Animated.View entering={StretchInY}>
-        //       <TaskRow task={item} />
-        //     </Animated.View>
-        //   </LayoutAnimationConfig>
-        // )}
+        renderItem={({ item }) => (
+          <LayoutAnimationConfig>
+            <Animated.View entering={StretchInY}>
+              <TaskRow task={item} />
+            </Animated.View>
+          </LayoutAnimationConfig>
+        )}
         renderSectionHeader={({ section }) => {
           return <Text style={styles.header}>{section.title}</Text>;
         }}

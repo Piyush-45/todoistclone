@@ -34,17 +34,19 @@ const HeaderLeft = () => {
   const { user } = useUser();
 
   return (
-    <Image source={{ uri: user?.imageUrl }} style={{ width: 32, height: 32, borderRadius: 16 }} />
+    <TouchableOpacity onPress={()=>console.log("profie clicked")} >
+      <Image source={{ uri: user?.imageUrl }} style={{ width: 32, height: 32, borderRadius: 16 ,zIndex:1000}} />
+    </TouchableOpacity>
   );
 };
 
 const HeaderRight = () => {
   return (
-    <Link href="/browse/settings" asChild>
+    // <Link href="/browse/settings" asChild>
       <TouchableOpacity>
         <Ionicons name="settings-outline" size={24} color={Colors.primary} />
       </TouchableOpacity>
-    </Link>
+    // </Link>
   );
 };
 export default Layout;

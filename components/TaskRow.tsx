@@ -21,7 +21,7 @@ import Reanimated, {
 } from 'react-native-reanimated';
 import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
-import { useMMKVString } from 'react-native-mmkv';
+// import { useMMKVString } from 'react-native-mmkv';
 import { drizzle } from 'drizzle-orm/expo-sqlite';
 import { todos } from '@/db/schema';
 import { eq } from 'drizzle-orm';
@@ -80,7 +80,7 @@ const TaskRow = ({ task }: TaskRowProps) => {
   const db = useSQLiteContext();
   const drizzleDb = drizzle(db)
   const reanimatedRef = useRef<SwipeableMethods>(null);
-  const [previouslySelectedDate, setPreviouslySelectedDate] = useMMKVString('selectedDate');
+  // const [previouslySelectedDate, setPreviouslySelectedDate] = useMMKVString('selectedDate');
   const heightAnim = useSharedValue(70); // Approximate height of row
   const opacityAnim = useSharedValue(1);
   const router = useRouter();

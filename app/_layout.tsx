@@ -13,6 +13,10 @@ import { SQLiteProvider, openDatabaseSync } from 'expo-sqlite';
 import { useDrizzleStudio } from "expo-drizzle-studio-plugin"
 import { addDummyData } from '@/utils/addDummyData';
 
+
+import { PaperProvider } from 'react-native-paper';
+
+
 const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY as string;
 if (!CLERK_PUBLISHABLE_KEY) {
   throw new Error(
@@ -64,18 +68,17 @@ function Loading() {
 }
 
 const RootLayoutNav = () => {
-// !1. Creating the SQLite Database:
+  // !1. Creating the SQLite Database:
   const expoDb = openDatabaseSync('todos.db');
   const db = drizzle(expoDb);
   const { success, error } = useMigrations(db, migrations);
-  useDrizzleStudio(db);
-
-
+  
   useEffect(() => {
     if (!success) return;
     addDummyData(db);
   }, [success]);
 
+useDrizzleStudio(db);
   return (
     <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY!} tokenCache={tokenCache}>
       <ClerkLoaded>
@@ -85,8 +88,10 @@ const RootLayoutNav = () => {
             options={{ enableChangeListener: true }}
             useSuspense>
             <GestureHandlerRootView style={{ flex: 1 }}>
-              <Toaster />
-              <InitialLayout />
+              <PaperProvider>
+                <Toaster />
+                <InitialLayout />
+              </PaperProvider>
             </GestureHandlerRootView>
           </SQLiteProvider>
         </Suspense>

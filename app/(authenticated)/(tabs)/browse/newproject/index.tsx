@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useSQLiteContext } from 'expo-sqlite'
@@ -13,10 +13,16 @@ const Page = () => {
   const drizzleDb = drizzle(db)
 
   const [projectName, setProjectName] = useState('');
+  // ** color-selector page is dictating the bg color via router
+  
   const { bg } = useGlobalSearchParams<{ bg?: string }>();
   const [selectedColor, setSelectedColor] = useState<string>(DEFAULT_PROJECT_COLOR);
 
-  const headerHeight = useHeaderHeight()
+  const headerHeight = Platform.select({
+    ios:44,
+    android:56
+  })
+
   useEffect(() => {
     if (bg) {
       setSelectedColor(bg);
@@ -28,9 +34,9 @@ const Page = () => {
       name: projectName,
       color: selectedColor,
     });
+    console.log("data created")
     router.dismiss();
   };
-
   return (
     <View style={{marginTop:headerHeight}}>
       <Stack.Screen
@@ -52,7 +58,6 @@ const Page = () => {
           placeholder="Name"
           autoFocus
         />
-
         <Link href="/browse/newproject/color-selector" asChild>
           <TouchableOpacity style={styles.btnItem}>
             <Ionicons name="color-palette-outline" size={24} color={Colors.dark} />
@@ -61,6 +66,8 @@ const Page = () => {
             <Ionicons name="chevron-forward" size={22} color={Colors.dark} />
           </TouchableOpacity>
         </Link>
+
+       
       </View>
     </View>
   )

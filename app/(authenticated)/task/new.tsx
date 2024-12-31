@@ -1,17 +1,17 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React, { useEffect } from 'react'
+import React from 'react'
+import TodoForm from '@/components/TodoForm'
 import { useSQLiteContext } from 'expo-sqlite'
 import { drizzle } from 'drizzle-orm/expo-sqlite'
-import { todos } from '@/db/schema'
 
-const New = () => {
+const NewTodo = () => {
+  const db = useSQLiteContext()
+  const drizzleDb= drizzle(db)
   return (
-    <View>
-      <Text>New</Text>
-    </View>
+    <TodoForm drizzleDb={drizzleDb}/>
   )
 }
 
-export default New
+export default NewTodo
 
 const styles = StyleSheet.create({})

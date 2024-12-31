@@ -47,6 +47,7 @@ const TabsLayout = () => {
                 name="browse" 
                 options={{
                     title: 'Browse',
+                    headerTitleAlign:'center',
                     tabBarIcon: ({ color, size }) => (
                         <Ionicons name="book-outline" size={size} color={color} />
                     ),
