@@ -1,5 +1,5 @@
 import { Stack } from 'expo-router';
-
+import MoreButton from "../../../../components/MoreButton"
 
 const Layout = () => {
   return (
@@ -9,8 +9,7 @@ const Layout = () => {
         options={{
           headerShadowVisible: false,
           title: 'Upcoming',
-          headerLargeTitle:true
-          // headerRight: () => <MoreButton pageName="Upcoming" />,
+          // headerLargeTitle:true,
         }}
       />
     </Stack>

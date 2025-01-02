@@ -21,10 +21,7 @@ import Reanimated, {
 } from 'react-native-reanimated';
 import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
-// import { useMMKVString } from 'react-native-mmkv';
-import { drizzle } from 'drizzle-orm/expo-sqlite';
-import { todos } from '@/db/schema';
-import { eq } from 'drizzle-orm';
+import { useMMKVString } from 'react-native-mmkv';
 
 interface TaskRowProps {
   task: Todo;
@@ -78,9 +75,8 @@ function RightAction(prog: SharedValue<number>, drag: SharedValue<number>) {
 
 const TaskRow = ({ task }: TaskRowProps) => {
   const db = useSQLiteContext();
-  const drizzleDb = drizzle(db)
   const reanimatedRef = useRef<SwipeableMethods>(null);
-  // const [previouslySelectedDate, setPreviouslySelectedDate] = useMMKVString('selectedDate');
+  const [previouslySelectedDate, setPreviouslySelectedDate] = useMMKVString('selectedDate');
   const heightAnim = useSharedValue(70); // Approximate height of row
   const opacityAnim = useSharedValue(1);
   const router = useRouter();
@@ -105,21 +101,19 @@ const TaskRow = ({ task }: TaskRowProps) => {
     // Wait for animation to complete before updating DB
     await new Promise((resolve) => setTimeout(resolve, 300));
 
-    await drizzleDb
-    .update(todos)
-    .set({
-      completed: 1,
-    //   date_completed: Date.now(),
-    })
-    .where(eq(todos.id, task.id));
-  
+    await db.runAsync(
+      'UPDATE todos SET completed = ?, date_completed = ? WHERE id = ?',
+      1,
+      Date.now(),
+      task.id
+    );
   };
 
-//   const onSwipeableOpen = () => {
-//     setPreviouslySelectedDate(new Date(task?.due_date || 0).toISOString());
-//     reanimatedRef.current?.close();
-//     router.push(`/task/date-select`);
-//   };
+  const onSwipeableOpen = () => {
+    setPreviouslySelectedDate(new Date(task?.due_date || 0).toISOString());
+    reanimatedRef.current?.close();
+    router.push(`/task/date-selector`);
+  };
 
   return (
     <Reanimated.View style={animatedStyle}>
@@ -130,7 +124,7 @@ const TaskRow = ({ task }: TaskRowProps) => {
         enableTrackpadTwoFingerGesture
         rightThreshold={40}
         renderRightActions={RightAction}
-        >
+        onSwipeableWillOpen={onSwipeableOpen}>
         <Link href={`/task/${task.id}`} style={styles.container} asChild>
           <TouchableOpacity>
             <View style={styles.row}>

@@ -29,5 +29,29 @@
         <data android:scheme="exp+todoistclone"/>
       </intent-filter>
     </activity>
+    <activity-alias android:name="com.anonymous.todoistclone.MainActivitydefault" android:enabled="false" android:exported="true" android:icon="@mipmap/default" android:targetActivity=".MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+    <activity-alias android:name="com.anonymous.todoistclone.MainActivitydark" android:enabled="false" android:exported="true" android:icon="@mipmap/dark" android:targetActivity=".MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+    <activity-alias android:name="com.anonymous.todoistclone.MainActivitygreen" android:enabled="false" android:exported="true" android:icon="@mipmap/green" android:targetActivity=".MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+    <activity-alias android:name="com.anonymous.todoistclone.MainActivityblue" android:enabled="false" android:exported="true" android:icon="@mipmap/blue" android:targetActivity=".MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
   </application>
 </manifest>

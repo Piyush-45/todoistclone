@@ -1,8 +1,9 @@
-import { Link, Stack } from 'expo-router';
+import { Link, router, Stack } from 'expo-router';
 import { Colors } from '@/constants/Colors';
 import { Image, TouchableOpacity } from 'react-native';
 import { useUser } from '@clerk/clerk-expo';
 import { Ionicons } from '@expo/vector-icons';
+import { Button } from 'react-native';
 
 const Layout = () => {
   return (
@@ -19,6 +20,17 @@ const Layout = () => {
           headerRight: () => <HeaderRight />,
         }}
       />
+       <Stack.Screen
+        name="settings"
+        options={{
+          title: 'Settings',
+          presentation: 'modal',
+          headerTransparent: true,
+          headerRight: () => (
+            <Button title="Done" onPress={() => router.dismiss()} color={Colors.primary} />
+          ),
+        }}
+      />
       <Stack.Screen
         name="newproject"
         options={{
@@ -26,6 +38,7 @@ const Layout = () => {
           headerShown: false,
         }}
       />
+     
     </Stack>
   );
 };
@@ -42,11 +55,11 @@ const HeaderLeft = () => {
 
 const HeaderRight = () => {
   return (
-    // <Link href="/browse/settings" asChild>
+<Link href="/browse/settings" asChild>
       <TouchableOpacity>
         <Ionicons name="settings-outline" size={24} color={Colors.primary} />
       </TouchableOpacity>
-    // </Link>
+    </Link>
   );
 };
 export default Layout;
