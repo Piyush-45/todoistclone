@@ -39,6 +39,5 @@ app-example
 
 .env.local
 
-
-.andriod
-.ios
+/android
+/ios
